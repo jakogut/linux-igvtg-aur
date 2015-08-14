@@ -23,7 +23,7 @@ prepare() {
   cd "${_srcname}"
 
   git checkout master-2015Q2-3.18.0
-  cp "${srcdir}/${_srcname}/config-3.18.0-dom0" ./.config
+  cp -f config-3.18.0-dom0 ./.config
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
@@ -62,6 +62,13 @@ _package() {
   cd "${_srcname}"
 
   KARCH=x86
+
+  # XenGT stuffs
+  mkdir -p "${pkgdir}"/{etc/udev/rules.d,usr/bin}
+  cp vgt.rules "${pkgdir}/etc/udev/rules.d/"
+
+  chmod a+x vgt_mgr
+  cp vgt_mgr "${pkgdir}/usr/bin/"
 
   # get kernel version
   _kernver="$(make LOCALVERSION= kernelrelease)"

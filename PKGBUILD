@@ -4,7 +4,7 @@
 
 pkgbase=linux-xengt
 _srcname=XenGT-Preview-kernel
-pkgver=4.2rc1.r62.gc4b5fd3
+pkgver=master-2015Q2-3.18.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.kernel.org/"

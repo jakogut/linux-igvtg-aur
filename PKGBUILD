@@ -1,17 +1,18 @@
-# Maintainer: Boohbah <boohbah at gmail.com>
+# Maintainer: Joseph Kogut <joseph.kogut+AUR@gmail.com>
+# Contributor: Boohbah <boohbah at gmail.com>
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
 pkgbase=linux-xengt
 _srcname=XenGT-Preview-kernel
-pkgver=master-2015Q2-3.18.0
+pkgver=master_2015Q2_3.18.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
-source=('git+https://github.com/01org/XenGT-Preview-kernel.git'
+source=('git+https://github.com/01org/XenGT-Preview-kernel.git#branch=master-2015Q2-3.18.0'
         # standard config files for mkinitcpio ramdisk
         "${pkgbase}.preset")
 sha256sums=('SKIP'
@@ -21,8 +22,6 @@ _kernelname=${pkgbase#linux}
 
 prepare() {
   cd "${_srcname}"
-
-  git checkout master-2015Q2-3.18.0
   cp -f config-3.18.0-dom0 ./.config
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging

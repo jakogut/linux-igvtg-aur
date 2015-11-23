@@ -3,26 +3,33 @@
 # Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Thomas Baechler <thomas@archlinux.org>
 
-pkgbase=linux-xengt
-_srcname=XenGT-Preview-kernel
-pkgver=master_2015Q2_3.18.0
+pkgbase=linux-igvtg
+_srcname=Igvtg-kernel
+pkgver=master_2015Q3_3.18.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
-source=('git+https://github.com/01org/XenGT-Preview-kernel.git#branch=master-2015Q2-3.18.0'
+source=('git+https://github.com/01org/Igvtg-kernel.git#branch=2015q3-3.18.0'
         # standard config files for mkinitcpio ramdisk
-        "${pkgbase}.preset")
+        "${pkgbase}.preset"
+	"config.x86_64"
+	"HD_4400_devid.patch")
+
 sha256sums=('SKIP'
-            'c5cd1579087fe8cae531a612f87187c631730e909d24e4df03541a246abe030e')
+            'c5cd1579087fe8cae531a612f87187c631730e909d24e4df03541a246abe030e'
+            'b373e1cb34dade1c89e3224c998259cb838bd4e3f8c7d27c0efd7346f3f4a2ea'
+            '0b475002e5299683a34b21d641bdff6f7717d6f52489330261c3c6da0979897e')
 
 _kernelname=${pkgbase#linux}
 
 prepare() {
   cd "${_srcname}"
-  cp -f config-3.18.0-dom0 ./.config
+  cp -f ${srcdir}/config.x86_64 .config
+
+  patch -p1 < ../HD_4400_devid.patch
 
   # don't run depmod on 'make install'. We'll do this ourselves in packaging
   sed -i '2iexit 0' scripts/depmod.sh
@@ -56,13 +63,13 @@ _package() {
   conflicts=("kernel26${_kernelname}")
   replaces=("kernel26${_kernelname}")
   backup=("etc/mkinitcpio.d/${pkgbase}.preset")
-  install=linux-xengt.install
+  install=linux-igvtg.install
 
   cd "${_srcname}"
 
   KARCH=x86
 
-  # XenGT stuffs
+  # Igvtg stuffs
   mkdir -p "${pkgdir}"/{etc/udev/rules.d,usr/bin}
   cp vgt.rules "${pkgdir}/etc/udev/rules.d/"
 

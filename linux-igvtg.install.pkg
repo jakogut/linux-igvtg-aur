@@ -2,7 +2,7 @@
 # arg 2:  the old package version
 
 KERNEL_NAME=-igvtg
-KERNEL_VERSION=3.18.0-rc7-vgt-2015q3-lts
+KERNEL_VERSION=4.2.0-rc8-vgt-ARCH-g715809f-dirty
 
 post_install () {
   # updating module dependencies

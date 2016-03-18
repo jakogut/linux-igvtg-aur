@@ -5,14 +5,14 @@
 
 pkgbase=linux-igvtg
 _srcname=Igvtg-kernel
-pkgver=master_2015Q3_3.18.0
+pkgver=master_2015Q4_4.2.0
 pkgrel=1
 arch=('x86_64')
 url="http://www.kernel.org/"
 license=('GPL2')
 makedepends=('xmlto' 'docbook-xsl' 'kmod' 'inetutils' 'bc' 'git')
 options=('!strip')
-source=('git+https://github.com/01org/Igvtg-kernel.git#branch=2015q3-3.18.0'
+source=('git+https://github.com/01org/Igvtg-kernel.git#branch=2015q4-4.2.0'
         # standard config files for mkinitcpio ramdisk
         "${pkgbase}.preset"
 	"config.x86_64"
